@@ -11,14 +11,15 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>io.github.alphahinex.demo</groupId>
-    <artifactId>seata-at</artifactId>
+    <groupId>io.github.alphahinex.demo.seata</groupId>
+    <artifactId>at-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
     <modules>
         <module>storage</module>
+        <module>at-common</module>
         <!-- <module>order</module>
         <module>account</module>
         <module>business</module> -->
@@ -37,6 +38,14 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
 
         <dependency>

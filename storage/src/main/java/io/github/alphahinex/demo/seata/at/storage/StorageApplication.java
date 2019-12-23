@@ -1,4 +1,4 @@
-package io.github.alphahinex.demo.seataat.storage;
+package io.github.alphahinex.demo.seata.at.storage;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
