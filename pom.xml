@@ -59,6 +59,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>io.github.spring-roll</groupId>
+            <artifactId>roll-test</artifactId>
+            <version>0.0.1.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

@@ -1,13 +1,13 @@
 package io.github.alphahinex.demo.seata.at.storage;
 
+import io.github.springroll.test.AbstractSpringTest;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class StorageApplicationTests {
+class StorageApplicationTests extends AbstractSpringTest {
 
 	@Test
 	void contextLoads() {
+		System.out.println("1");
 	}
 
 }
