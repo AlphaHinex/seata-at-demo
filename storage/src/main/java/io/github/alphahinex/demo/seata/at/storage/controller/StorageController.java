@@ -5,7 +5,7 @@ import io.github.alphahinex.demo.seata.at.storage.service.StorageService;
 import io.github.alphahinex.demo.seata.at.storage.vo.CommodityVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +21,7 @@ public class StorageController extends BaseController {
         this.service = service;
     }
 
-    @PostMapping("/decrease")
+    @PutMapping("/decrease")
     ResponseEntity<Integer> decrease(@RequestBody CommodityVO vo) {
         return responseOfPost(service.decrease(vo));
     }
