@@ -1,0 +1,1 @@
+INSERT INTO t_account (id, user_id, amount) VALUES ('test_user_id', 'test-user', 100);

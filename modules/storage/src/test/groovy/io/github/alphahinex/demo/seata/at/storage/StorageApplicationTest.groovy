@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional
 class StorageApplicationTest extends AbstractSpringTest {
 
     @Test
-    void contextLoads() {
+    void testDecrease() {
         def sum = 100
         def decrease = 2
         def left = sum - decrease
