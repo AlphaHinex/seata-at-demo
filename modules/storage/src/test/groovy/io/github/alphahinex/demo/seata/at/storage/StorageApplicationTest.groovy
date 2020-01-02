@@ -14,15 +14,21 @@ class StorageApplicationTest extends AbstractSpringTest {
 
     @Test
     void contextLoads() {
+        def sum = 100
+        def decrease = 2
+        def left = sum - decrease
+
         String code = "test"
-        get("/at/storage/" + code, HttpStatus.OK)
+        def res = resOfGet("/at/storage/" + code, HttpStatus.OK)
+        assert res.count == sum
 
-        CommodityVO vo = new CommodityVO()
-        vo.setCount(2)
+        def vo = new CommodityVO()
+        vo.setCount(decrease)
         vo.setCommodityCode(code)
-        put("/at/storage/decrease", JsonOutput.toJson(vo), HttpStatus.OK)
+        res = resOfPut("/at/storage/decrease", JsonOutput.toJson(vo), HttpStatus.OK)
+        assert res == left
 
-        get("/at/storage/" + code, HttpStatus.OK)
+        assert resOfGet("/at/storage/" + code, HttpStatus.OK).count == left
     }
 
 }
