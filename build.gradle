@@ -1,0 +1,93 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://maven.pkg.github.com/AlphaHinex/spring-roll'
+            credentials(PasswordCredentials) {
+                username = 'AlphaHinex'
+                password = '9cda69cc36ec1dd7b2c1387758c99c2689c32645'
+            }
+        }
+    }
+    dependencies {
+        classpath 'com.h2database:h2:1.4.199'
+        classpath 'io.github.spring-roll:roll-dev-configs:0.0.1.RELEASE'
+        classpath 'io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE'
+    }
+    dependencies {
+        def devConfExtractPath = "${rootProject.projectDir}/build/roll-dev-configs"
+        delete devConfExtractPath
+        def jars = configurations.classpath.files as List<File>
+        ant.unjar src: jars.find { it.name.matches '.*roll-dev-configs.*'}, dest: devConfExtractPath
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://maven.pkg.github.com/AlphaHinex/spring-roll'
+            credentials(PasswordCredentials) {
+                username = 'AlphaHinex'
+                password = '9cda69cc36ec1dd7b2c1387758c99c2689c32645'
+            }
+        }
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'utf-8'
+        options.compilerArgs = [
+            '-Xlint:-options',
+            '-Xlint:deprecation',
+            '-Xlint:unchecked',
+            '-Werror'
+        ]
+    }
+
+    tasks.withType(GroovyCompile) {
+        options.encoding = 'utf-8'
+        options.compilerArgs = ['-Xlint:-options']
+        groovyOptions.encoding = 'utf-8'
+    }
+}
+
+//plugins {
+//    id 'io.spring.dependency-management' version '1.0.6.RELEASE'
+//    id 'org.springframework.boot' version '2.1.8.RELEASE'
+//    id "com.github.spotbugs" version "2.0.0"
+//    id "io.freefair.lombok" version "4.1.6"
+//}
+
+apply plugin: 'idea'
+
+group = 'io.github.alphahinex.demo'
+version = '0.0.1-SNAPSHOT'
+
+subprojects {
+    apply plugin: 'idea'
+    apply plugin: 'java'
+    apply plugin: 'groovy'
+
+    apply plugin: 'io.spring.dependency-management'
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot:2.1.8.RELEASE"
+        }
+    }
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    group = rootProject.group
+    version = rootProject.version
+
+    dependencies {
+//        annotationProcessor libraries.lombok,
+//                            libraries.spring_boot_configuration_processor
+//
+//                compileOnly libraries.lombok,
+//                            libraries.spring_boot_starter_logging
+    }
+
+}
