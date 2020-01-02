@@ -105,6 +105,7 @@ subprojects {
         implementation libraries.spring_boot_starter_data_jpa
         implementation libraries.h2
         implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+        implementation 'com.alibaba.cloud:spring-cloud-alibaba-nacos-discovery:2.1.1.RELEASE'
 
         implementation libraries.roll_web
 
