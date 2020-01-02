@@ -3,20 +3,14 @@ package io.github.alphahinex.demo.seata.at.storage;
 import groovy.json.JsonOutput;
 import io.github.alphahinex.demo.seata.at.storage.vo.CommodityVO;
 import io.github.springroll.test.AbstractSpringTest;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
 @Sql
 @Transactional
-class StorageApplicationTests extends AbstractSpringTest {
-
-	@BeforeEach
-	void beforeAll() {
-		setup();
-	}
+class StorageApplicationTest extends AbstractSpringTest {
 
 	@Test
 	void contextLoads() {

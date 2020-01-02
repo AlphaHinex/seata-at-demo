@@ -2,6 +2,9 @@ buildscript {
     repositories {
         mavenCentral()
         maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven {
             url 'https://maven.pkg.github.com/AlphaHinex/spring-roll'
             credentials(PasswordCredentials) {
                 username = 'AlphaHinex'
@@ -10,16 +13,28 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.h2database:h2:1.4.199'
-        classpath 'io.github.spring-roll:roll-dev-configs:0.0.1.RELEASE'
+        classpath 'io.github.spring-roll:roll-dev-configs:0.0.2.RELEASE'
         classpath 'io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE'
-    }
-    dependencies {
+        classpath 'io.freefair.gradle:lombok-plugin:4.1.6'
+
         def devConfExtractPath = "${rootProject.projectDir}/build/roll-dev-configs"
         delete devConfExtractPath
         def jars = configurations.classpath.files as List<File>
         ant.unjar src: jars.find { it.name.matches '.*roll-dev-configs.*'}, dest: devConfExtractPath
     }
+}
+
+//plugins {
+//    id 'io.spring.dependency-management' version '1.0.6.RELEASE'
+//    id 'org.springframework.boot' version '2.1.8.RELEASE'
+//    id "com.github.spotbugs" version "2.0.0"
+//    id "io.freefair.lombok" version "4.1.6"
+//}
+
+ext {
+    devConfExtractPath = "${rootProject.projectDir}/build/roll-dev-configs"
+    devConfRoot = "$devConfExtractPath/META-INF"
+    springCloudVersion = 'Hoxton.SR1'
 }
 
 allprojects {
@@ -51,13 +66,6 @@ allprojects {
     }
 }
 
-//plugins {
-//    id 'io.spring.dependency-management' version '1.0.6.RELEASE'
-//    id 'org.springframework.boot' version '2.1.8.RELEASE'
-//    id "com.github.spotbugs" version "2.0.0"
-//    id "io.freefair.lombok" version "4.1.6"
-//}
-
 apply plugin: 'idea'
 
 group = 'io.github.alphahinex.demo'
@@ -70,9 +78,14 @@ subprojects {
 
     apply plugin: 'io.spring.dependency-management'
 
+    apply plugin: "io.freefair.lombok"
+
+    apply from: "$devConfRoot/configs/dependencies.gradle"
+
     dependencyManagement {
         imports {
             mavenBom "org.springframework.boot:spring-boot:2.1.8.RELEASE"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
         }
     }
 
@@ -83,11 +96,20 @@ subprojects {
     version = rootProject.version
 
     dependencies {
-//        annotationProcessor libraries.lombok,
-//                            libraries.spring_boot_configuration_processor
-//
-//                compileOnly libraries.lombok,
-//                            libraries.spring_boot_starter_logging
+        annotationProcessor libraries.lombok,
+                            libraries.spring_boot_configuration_processor
+
+                compileOnly libraries.lombok,
+                            libraries.spring_boot_starter_logging
+
+        implementation libraries.spring_boot_starter_data_jpa
+        implementation libraries.h2
+        implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+        implementation libraries.roll_web
+
+        testImplementation libraries.spring_boot_starter_test
+        testImplementation libraries.roll_test
     }
 
 }
