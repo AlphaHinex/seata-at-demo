@@ -7,7 +7,7 @@ How to use?
 1. Build service jars
 
     ```
-    $ ./gradlew jar
+    $ ./gradlew bootJar
     ```
 
 1. Docker compose
