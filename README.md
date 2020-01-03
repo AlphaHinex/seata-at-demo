@@ -15,3 +15,11 @@ How to use?
     ```
     $ docker-compose up -d
     ``` 
+
+1. Wait for all services boot up
+   
+1. Access Nacos with `nacos`/`nacos`
+
+    http://localhost:8848/nacos
+
+1. 

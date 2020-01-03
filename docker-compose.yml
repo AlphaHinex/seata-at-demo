@@ -24,3 +24,38 @@ storage:
     - mysql
     - nacos
   command: java -jar /usr/local/demo/storage.jar
+  ports:
+    - "8081:8081"
+account:
+  image: propersoft/docker-jre:8u171-jre
+  volumes:
+    - ./modules/account/build/libs/account-0.0.1-SNAPSHOT.jar:/usr/local/demo/account.jar
+  working_dir: /usr/local/demo
+  links:
+    - mysql
+    - nacos
+  command: java -jar /usr/local/demo/account.jar
+  ports:
+    - "8082:8082"
+order:
+  image: propersoft/docker-jre:8u171-jre
+  volumes:
+    - ./modules/order/build/libs/order-0.0.1-SNAPSHOT.jar:/usr/local/demo/order.jar
+  working_dir: /usr/local/demo
+  links:
+    - mysql
+    - nacos
+  command: java -jar /usr/local/demo/order.jar
+  ports:
+    - "8083:8083"
+business:
+  image: propersoft/docker-jre:8u171-jre
+  volumes:
+    - ./modules/business/build/libs/business-0.0.1-SNAPSHOT.jar:/usr/local/demo/business.jar
+  working_dir: /usr/local/demo
+  links:
+    - mysql
+    - nacos
+  command: java -jar /usr/local/demo/business.jar
+  ports:
+    - "8084:8084"
