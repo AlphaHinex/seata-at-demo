@@ -1,25 +1,22 @@
 package io.github.alphahinex.demo.seata.at.order
 
-import feign.Client
-import feign.Request
-import feign.Response
+import io.github.alphahinex.demo.seata.at.order.service.StorageClient
 import io.github.springroll.test.AbstractSpringTest
 import org.junit.Test
+import org.mockito.Mockito
+import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 
 class OrderControllerTest extends AbstractSpringTest {
 
+    @MockBean
+    private StorageClient storageClient
+
     @Test
-    void test() {
-        println System.getProperty('http.proxyHost')
-        println System.getProperty('http.nonProxyHosts')
-        println System.getProperty('https.nonProxyHosts')
-        def url = 'http://10.88.43.229:8081/at/storage/123'
-//        def url = 'https://github.com'
-        def client = new Client.Default(null, null)
-        def request = new Request(Request.HttpMethod.GET, url, [:], new Request.Body(null, null, null))
-        def option = new Request.Options(1000, 1000, true)
-        Response response = client.execute(request, option)
-        assert response.status() != 407
+    void testGetStorage() {
+        Mockito.when(storageClient.get('123')).thenReturn(new ResponseEntity([], HttpStatus.OK))
+        get('/at/order/storage/123', HttpStatus.OK)
     }
 
 }
