@@ -16,6 +16,7 @@ buildscript {
         classpath 'io.github.spring-roll:roll-dev-configs:0.0.2.RELEASE'
         classpath 'io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE'
         classpath 'io.freefair.gradle:lombok-plugin:4.1.6'
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.2.1.RELEASE'
 
         def devConfExtractPath = "${rootProject.projectDir}/build/roll-dev-configs"
         delete devConfExtractPath
@@ -77,7 +78,6 @@ subprojects {
     apply plugin: 'groovy'
 
     apply plugin: 'io.spring.dependency-management'
-
     apply plugin: "io.freefair.lombok"
 
     apply from: "$devConfRoot/configs/dependencies.gradle"
