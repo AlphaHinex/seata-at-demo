@@ -103,6 +103,7 @@ subprojects {
                             libraries.spring_boot_starter_logging
 
         implementation libraries.spring_boot_starter_data_jpa
+        implementation libraries.mysql_driver
         implementation libraries.h2
         implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
         implementation 'com.alibaba.cloud:spring-cloud-alibaba-nacos-discovery:2.1.1.RELEASE'
@@ -110,6 +111,7 @@ subprojects {
         implementation libraries.roll_web
 
         testImplementation libraries.spring_boot_starter_test
+        testImplementation libraries.h2
         testImplementation libraries.roll_test
     }
 

@@ -4,9 +4,9 @@ mysql:
     - ./docker/mysql/conf:/etc/mysql/conf.d
   environment:
     - MYSQL_ROOT_PASSWORD=3426
-    - MYSQL_DATABASE=ah
-    - MYSQL_USER=ah
-    - MYSQL_PASSWORD=ah
+    - MYSQL_DATABASE=at
+    - MYSQL_USER=at
+    - MYSQL_PASSWORD=at
   ports:
     - "3306:3306"
 nacos:

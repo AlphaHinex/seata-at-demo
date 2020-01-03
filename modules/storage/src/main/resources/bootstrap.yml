@@ -5,5 +5,21 @@ spring:
     nacos:
       discovery:
         server-addr: nacos:8848
+  profiles:
+    active: dev
 server:
   port: 8081
+
+---
+
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://mysql:3306/at
+    username: at
+    password: at
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    properties:
+      hibernate.dialect.storage_engine: innodb
+      hibernate.dialect: org.hibernate.dialect.MySQL57Dialect
