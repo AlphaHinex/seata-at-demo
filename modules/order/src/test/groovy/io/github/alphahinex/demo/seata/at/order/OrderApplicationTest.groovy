@@ -10,7 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 
-class OrderControllerTest extends AbstractSpringTest {
+class OrderApplicationTest extends AbstractSpringTest {
 
     def prefix = '/at/order'
 
