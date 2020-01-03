@@ -15,8 +15,9 @@ class OrderControllerTest extends AbstractSpringTest {
 
     @Test
     void testGetStorage() {
-        Mockito.when(storageClient.get('123')).thenReturn(new ResponseEntity([], HttpStatus.OK))
-        get('/at/order/storage/123', HttpStatus.OK)
+        def code = '123'
+        Mockito.when(storageClient.get(code)).thenReturn(new ResponseEntity([code: code, type: 'mock'], HttpStatus.OK))
+        assert resOfGet("/at/order/storage/$code", HttpStatus.OK).type == 'mock'
     }
 
 }
