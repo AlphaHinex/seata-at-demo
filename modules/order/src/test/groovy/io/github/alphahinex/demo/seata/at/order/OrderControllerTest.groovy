@@ -1,5 +1,7 @@
 package io.github.alphahinex.demo.seata.at.order
 
+import groovy.json.JsonOutput
+import io.github.alphahinex.demo.seata.at.order.service.AccountClient
 import io.github.alphahinex.demo.seata.at.order.service.StorageClient
 import io.github.springroll.test.AbstractSpringTest
 import org.junit.Test
@@ -10,14 +12,29 @@ import org.springframework.http.ResponseEntity
 
 class OrderControllerTest extends AbstractSpringTest {
 
+    def prefix = '/at/order'
+
     @MockBean
     private StorageClient storageClient
+
+    @MockBean
+    private AccountClient accountClient
 
     @Test
     void testGetStorage() {
         def code = '123'
         Mockito.when(storageClient.get(code)).thenReturn(new ResponseEntity([code: code, type: 'mock'], HttpStatus.OK))
-        assert resOfGet("/at/order/storage/$code", HttpStatus.OK).type == 'mock'
+        assert resOfGet("$prefix/storage/$code", HttpStatus.OK).type == 'mock'
+    }
+
+    @Test
+    void testCreateOrder() {
+        def userId = 'mock-user'
+        def orderAmount = BigDecimal.TEN
+        Mockito.when(accountClient.decrease(userId, orderAmount)).thenReturn(new ResponseEntity<Double>(100d, HttpStatus.OK))
+        def res = resOfPost(prefix, JsonOutput.toJson([userId: userId, orderAmount: orderAmount, orderCount: 23]), HttpStatus.CREATED)
+        assert res.id != ''
+        assert res.orderNo != ''
     }
 
 }

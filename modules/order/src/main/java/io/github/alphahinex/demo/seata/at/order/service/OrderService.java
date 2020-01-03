@@ -7,6 +7,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class OrderService {
 
@@ -23,6 +25,7 @@ public class OrderService {
         // 扣减用户账户
         accountClient.decrease(vo.getUserId(), vo.getOrderAmount());
 
+        vo.setOrderNo(UUID.randomUUID().toString());
         // 生成订单
         OrderEntity entity = new OrderEntity();
         BeanUtils.copyProperties(vo, entity);
@@ -30,6 +33,7 @@ public class OrderService {
         entity.setAmount(vo.getOrderAmount().doubleValue());
 
         repository.save(entity);
+        vo.setId(entity.getId());
 
         return vo;
     }
