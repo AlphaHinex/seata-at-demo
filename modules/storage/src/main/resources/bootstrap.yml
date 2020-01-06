@@ -5,15 +5,6 @@ spring:
     nacos:
       discovery:
         server-addr: nacos:8848
-  profiles:
-    active: dev
-server:
-  port: 8081
-
----
-
-spring:
-  profiles: dev
   datasource:
     url: jdbc:mysql://mysql:3306/at
     username: at
@@ -24,3 +15,6 @@ spring:
       ddl-auto: update
     properties:
       hibernate.dialect: org.hibernate.dialect.MySQL57Dialect
+      
+server:
+  port: 8081
