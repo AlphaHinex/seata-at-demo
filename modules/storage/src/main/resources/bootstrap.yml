@@ -20,6 +20,5 @@ spring:
     password: at
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:
-    properties:
-      hibernate.dialect.storage_engine: innodb
-      hibernate.dialect: org.hibernate.dialect.MySQL57Dialect
+    hibernate:
+      ddl-auto: update
