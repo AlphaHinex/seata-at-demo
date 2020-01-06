@@ -1,0 +1,1 @@
+INSERT INTO t_storage (id, commodity_code, name, count) VALUES ('1', 'C201901140001', '水杯', '1000');
