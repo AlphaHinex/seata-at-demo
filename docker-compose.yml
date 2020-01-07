@@ -62,6 +62,8 @@ business:
     - "8084:8084"
 seata-server:
   image: seataio/seata-server:1.0.0
+  links:
+    - nacos
   volumes:
     - ./docker/seata/registry.conf:/seata-server/resources/registry.conf
   ports:
