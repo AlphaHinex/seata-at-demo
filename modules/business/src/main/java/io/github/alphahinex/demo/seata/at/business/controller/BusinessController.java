@@ -3,6 +3,7 @@ package io.github.alphahinex.demo.seata.at.business.controller;
 import io.github.alphahinex.demo.seata.at.business.service.BusinessService;
 import io.github.alphahinex.demo.seata.at.business.vo.BusinessVO;
 import io.github.springroll.web.controller.BaseController;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ public class BusinessController extends BaseController {
         this.businessService = businessService;
     }
 
+    @GlobalTransactional
     @PostMapping("/buy")
     public ResponseEntity buy(@RequestBody BusinessVO vo) {
         return businessService.handleBusiness(vo);
