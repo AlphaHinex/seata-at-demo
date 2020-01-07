@@ -2,6 +2,7 @@ package io.github.alphahinex.demo.seata.at.order.service;
 
 import io.github.alphahinex.demo.seata.at.order.entity.OrderEntity;
 import io.github.alphahinex.demo.seata.at.order.repository.OrderRepository;
+import io.github.alphahinex.demo.seata.at.order.service.model.AccountVO;
 import io.github.alphahinex.demo.seata.at.order.vo.OrderVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,11 @@ public class OrderService {
     }
 
     public OrderVO createOrder(OrderVO vo) {
+        AccountVO accountVO = new AccountVO();
+        accountVO.setUserId(vo.getUserId());
+        accountVO.setAmount(vo.getOrderAmount());
         // 扣减用户账户
-        accountClient.decrease(vo.getUserId(), vo.getOrderAmount());
+        accountClient.decrease(accountVO);
 
         vo.setOrderNo(UUID.randomUUID().toString());
         // 生成订单
