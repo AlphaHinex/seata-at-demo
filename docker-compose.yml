@@ -60,3 +60,9 @@ business:
   command: java -jar /usr/local/demo/business.jar
   ports:
     - "8084:8084"
+seata-server:
+  image: seataio/seata-server:1.0.0
+  volumes:
+    - ./docker/seata/registry.conf:/seata-server/resources/registry.conf
+  ports:
+    - "8091:8091"
