@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Service
@@ -35,6 +36,10 @@ public class OrderService {
         BeanUtils.copyProperties(vo, entity);
         entity.setCount(vo.getOrderCount());
         entity.setAmount(vo.getOrderAmount().doubleValue());
+
+        if (vo.getOrderAmount().compareTo(BigDecimal.ZERO) < 0) {
+            throw new RuntimeException("金额不能为负数");
+        }
 
         repository.save(entity);
         vo.setId(entity.getId());

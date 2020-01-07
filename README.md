@@ -25,7 +25,13 @@ How to use?
 1. Use curl to send a post request
 
     ```bash
-    curl -H "Content-Type:application/json" -X POST -d '{"userId":"1","commodityCode":"C201901140001","name":"水杯","count":2,"amount":"100"}' localhost:8084/at/business/buy
+    $ curl -H "Content-Type:application/json" -X POST -d '{"userId":"1","commodityCode":"C201901140001","name":"水杯","count":2,"amount":"100"}' localhost:8084/at/business/buy
     ```
    
    then this will send a pay request, and return code is 200.
+
+1. The follow request will cause an exception
+
+    ```bash
+    $ curl -H "Content-Type:application/json" -X POST -d '{"userId":"1","commodityCode":"C201901140001","name":"水杯","count":2,"amount":"-10"}' localhost:8084/at/business/buy
+    ```
