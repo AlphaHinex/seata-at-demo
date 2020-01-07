@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient("order")
+@FeignClient(name = "order", path = "/at/order")
 public interface OrderClient {
 
     @PostMapping

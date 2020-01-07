@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient("storage")
+@FeignClient(name = "storage", path = "/at/storage")
 public interface StorageClient {
 
     @PutMapping("/decrease")

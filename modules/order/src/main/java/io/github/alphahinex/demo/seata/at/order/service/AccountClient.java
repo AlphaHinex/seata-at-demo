@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigDecimal;
 
-@FeignClient("account")
+@FeignClient(name = "account", path = "/at/account")
 public interface AccountClient {
 
     @PutMapping("/decrease")
