@@ -110,7 +110,7 @@ subprojects {
 
         implementation libraries.roll_web
 
-        implementation 'io.seata:seata-all:1.0.0'
+        implementation 'io.seata:seata-spring-boot-starter:1.0.0'
 
         testImplementation libraries.spring_boot_starter_test
         testImplementation libraries.h2
