@@ -4,6 +4,8 @@ import io.github.alphahinex.demo.seata.at.order.entity.OrderEntity;
 import io.github.alphahinex.demo.seata.at.order.repository.OrderRepository;
 import io.github.alphahinex.demo.seata.at.order.service.model.AccountVO;
 import io.github.alphahinex.demo.seata.at.order.vo.OrderVO;
+import io.seata.core.context.RootContext;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Service
+@Slf4j
 public class OrderService {
 
     private AccountClient accountClient;
@@ -24,6 +27,7 @@ public class OrderService {
     }
 
     public OrderVO createOrder(OrderVO vo) {
+        log.debug("Global transaction id: {}", RootContext.getXID());
         AccountVO accountVO = new AccountVO();
         accountVO.setUserId(vo.getUserId());
         accountVO.setAmount(vo.getOrderAmount());

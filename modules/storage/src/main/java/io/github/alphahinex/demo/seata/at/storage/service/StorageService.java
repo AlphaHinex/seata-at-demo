@@ -3,11 +3,14 @@ package io.github.alphahinex.demo.seata.at.storage.service;
 import io.github.alphahinex.demo.seata.at.storage.entity.StorageEntity;
 import io.github.alphahinex.demo.seata.at.storage.repository.StorageRepository;
 import io.github.alphahinex.demo.seata.at.storage.vo.CommodityVO;
+import io.seata.core.context.RootContext;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class StorageService {
 
     private StorageRepository repository;
@@ -18,6 +21,7 @@ public class StorageService {
     }
 
     public Integer decrease(CommodityVO vo) {
+        log.debug("Global transaction id: {}", RootContext.getXID());
         StorageEntity entity = repository.findByCommodityCode(vo.getCommodityCode());
         entity.setCount(entity.getCount() - vo.getCount());
         repository.save(entity);

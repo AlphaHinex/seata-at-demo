@@ -24,3 +24,8 @@ server:
 seata:
   service:
     grouplist: seata-server:8091
+
+logging:
+  level:
+    io.seata: trace
+    io.github.alphahinex: trace

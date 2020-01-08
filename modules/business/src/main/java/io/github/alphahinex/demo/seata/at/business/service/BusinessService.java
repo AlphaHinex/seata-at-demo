@@ -3,11 +3,14 @@ package io.github.alphahinex.demo.seata.at.business.service;
 import io.github.alphahinex.demo.seata.at.business.service.model.CommodityVO;
 import io.github.alphahinex.demo.seata.at.business.service.model.OrderVO;
 import io.github.alphahinex.demo.seata.at.business.vo.BusinessVO;
+import io.seata.core.context.RootContext;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
+@Slf4j
 public class BusinessService {
 
     private StorageClient storageClient;
@@ -20,6 +23,7 @@ public class BusinessService {
     }
 
     public ResponseEntity<OrderVO> handleBusiness(BusinessVO businessVO) {
+        log.debug("Global transaction id: {}", RootContext.getXID());
         // 1. 扣减库存
         CommodityVO commodityVO = new CommodityVO();
         commodityVO.setCommodityCode(businessVO.getCommodityCode());
