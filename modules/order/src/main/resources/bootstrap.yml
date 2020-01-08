@@ -18,3 +18,7 @@ spring:
 
 server:
   port: 8083
+
+seata:
+  service:
+    grouplist: seata-server:8091
