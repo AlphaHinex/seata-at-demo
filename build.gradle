@@ -14,28 +14,17 @@ buildscript {
     }
     dependencies {
         classpath 'io.github.spring-roll:roll-dev-configs:0.0.2.RELEASE'
-        classpath 'io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE'
-        classpath 'io.freefair.gradle:lombok-plugin:4.1.6'
-        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.2.1.RELEASE'
-
-        def devConfExtractPath = "${rootProject.projectDir}/build/roll-dev-configs"
-        delete devConfExtractPath
-        def jars = configurations.classpath.files as List<File>
-        ant.unjar src: jars.find { it.name.matches '.*roll-dev-configs.*'}, dest: devConfExtractPath
+//        classpath 'io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE'
+//        classpath 'io.freefair.gradle:lombok-plugin:4.1.6'
+//        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.2.1.RELEASE'
     }
 }
 
-//plugins {
-//    id 'io.spring.dependency-management' version '1.0.6.RELEASE'
-//    id 'org.springframework.boot' version '2.1.8.RELEASE'
+plugins {
+    id 'io.spring.dependency-management' version '1.0.6.RELEASE'
+    id 'org.springframework.boot' version '2.2.1.RELEASE'
 //    id "com.github.spotbugs" version "2.0.0"
-//    id "io.freefair.lombok" version "4.1.6"
-//}
-
-ext {
-    devConfExtractPath = "${rootProject.projectDir}/build/roll-dev-configs"
-    devConfRoot = "$devConfExtractPath/META-INF"
-    springCloudVersion = 'Hoxton.SR1'
+    id "io.freefair.lombok" version "4.1.6"
 }
 
 allprojects {
@@ -80,12 +69,12 @@ subprojects {
     apply plugin: 'io.spring.dependency-management'
     apply plugin: "io.freefair.lombok"
 
-    apply from: "$devConfRoot/configs/dependencies.gradle"
+    apply from: this.getClass().getClassLoader().getResource("META-INF/configs/dependencies.gradle")
 
     dependencyManagement {
         imports {
             mavenBom "org.springframework.boot:spring-boot:${versions.spring_boot}"
-            mavenBom "org.springframework.cloud:spring-cloud-dependencies:$springCloudVersion"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:Hoxton.SR1"
         }
     }
 
