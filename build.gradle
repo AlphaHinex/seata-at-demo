@@ -55,6 +55,7 @@ allprojects {
 }
 
 apply plugin: 'idea'
+apply from: this.getClass().getClassLoader().getResource("META-INF/configs/scaffold/module.gradle")
 
 group = 'io.github.alphahinex.demo'
 version = '0.0.1-SNAPSHOT'
