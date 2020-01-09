@@ -75,6 +75,6 @@ services:
       - storage
       - order
       - seata-server
-      command: ["./wait-for-it.sh", "-t", "0", "order:8083", "--", "java", "-jar", "/usr/local/demo/business.jar"]
+    command: ["./wait-for-it.sh", "-t", "0", "order:8083", "--", "java", "-jar", "/usr/local/demo/business.jar"]
     ports:
       - "8084:8084"
