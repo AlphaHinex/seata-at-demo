@@ -3,6 +3,7 @@ package io.github.alphahinex.demo.seata.at.order
 import groovy.json.JsonOutput
 import io.github.alphahinex.demo.seata.at.order.service.AccountClient
 import io.github.alphahinex.demo.seata.at.order.service.StorageClient
+import io.github.alphahinex.demo.seata.at.order.service.model.AccountVO
 import io.github.springroll.test.AbstractSpringTest
 import org.junit.Test
 import org.mockito.Mockito
@@ -31,7 +32,10 @@ class OrderApplicationTest extends AbstractSpringTest {
     void testCreateOrder() {
         def userId = 'mock-user'
         def orderAmount = BigDecimal.TEN
-        Mockito.when(accountClient.decrease(userId, orderAmount)).thenReturn(new ResponseEntity<Double>(100d, HttpStatus.OK))
+        def vo = new AccountVO()
+        vo.setUserId(userId)
+        vo.setAmount(orderAmount)
+        Mockito.when(accountClient.decrease(vo)).thenReturn(new ResponseEntity<Double>(100d, HttpStatus.OK))
         def res = resOfPost(prefix, JsonOutput.toJson([userId: userId, orderAmount: orderAmount, orderCount: 23]), HttpStatus.CREATED)
         assert res.id != ''
         assert res.orderNo != ''
