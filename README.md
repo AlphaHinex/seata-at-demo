@@ -7,7 +7,7 @@ How to use?
 1. Build service jars
 
     ```
-    $ ./gradlew bootJar
+    $ ./gradlew clean bootJar
     ```
 
 1. Docker compose
@@ -21,6 +21,10 @@ How to use?
 1. Access Nacos with `nacos`/`nacos`
 
     http://localhost:8848/nacos
+
+1. Access business service
+
+    http://localhost:8084
 
 1. Use curl to send a post request
 

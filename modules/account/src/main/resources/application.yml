@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: account
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8082
