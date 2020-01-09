@@ -21,43 +21,47 @@ services:
     image: propersoft/docker-jre:8u171-jre
     volumes:
       - ./modules/storage/build/libs/storage-0.0.1-SNAPSHOT.jar:/usr/local/demo/storage.jar
+      - ./docker/wait-for-it.sh:/wait-for-it.sh
     depends_on:
       - mysql
       - nacos
-    command: java -jar /usr/local/demo/storage.jar
+    command: ["./wait-for-it.sh", "-t", "0", "nacos:8848", "--", "java", "-jar", "/usr/local/demo/storage.jar"]
     ports:
       - "8081:8081"
   account:
     image: propersoft/docker-jre:8u171-jre
     volumes:
       - ./modules/account/build/libs/account-0.0.1-SNAPSHOT.jar:/usr/local/demo/account.jar
+      - ./docker/wait-for-it.sh:/wait-for-it.sh
     depends_on:
       - mysql
       - nacos
-    command: java -jar /usr/local/demo/account.jar
+    command: ["./wait-for-it.sh", "-t", "0", "nacos:8848", "--", "java", "-jar", "/usr/local/demo/account.jar"]
     ports:
       - "8082:8082"
   order:
     image: propersoft/docker-jre:8u171-jre
     volumes:
       - ./modules/order/build/libs/order-0.0.1-SNAPSHOT.jar:/usr/local/demo/order.jar
+      - ./docker/wait-for-it.sh:/wait-for-it.sh
     depends_on:
       - mysql
       - nacos
       - storage
       - account
-    command: java -jar /usr/local/demo/order.jar
+    command: ["./wait-for-it.sh", "-t", "0", "storage:8081", "--", "./wait-for-it.sh", "-t", "0", "account:8082", "--", "java", "-jar", "/usr/local/demo/order.jar"]
     ports:
       - "8083:8083"
   business:
     image: propersoft/docker-jre:8u171-jre
     volumes:
       - ./modules/business/build/libs/business-0.0.1-SNAPSHOT.jar:/usr/local/demo/business.jar
+      - ./docker/wait-for-it.sh:/wait-for-it.sh
     depends_on:
       - mysql
       - nacos
       - storage
       - order
-    command: java -jar /usr/local/demo/business.jar
+    command: ["./wait-for-it.sh", "-t", "0", "order:8083", "--", "java", "-jar", "/usr/local/demo/business.jar"]
     ports:
       - "8084:8084"
