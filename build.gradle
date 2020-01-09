@@ -14,16 +14,12 @@ buildscript {
     }
     dependencies {
         classpath 'io.github.spring-roll:roll-dev-configs:0.0.2.RELEASE'
-//        classpath 'io.spring.gradle:dependency-management-plugin:1.0.6.RELEASE'
-//        classpath 'io.freefair.gradle:lombok-plugin:4.1.6'
-//        classpath 'org.springframework.boot:spring-boot-gradle-plugin:2.2.1.RELEASE'
     }
 }
 
 plugins {
     id 'io.spring.dependency-management' version '1.0.6.RELEASE'
     id 'org.springframework.boot' version '2.2.1.RELEASE'
-//    id "com.github.spotbugs" version "2.0.0"
     id "io.freefair.lombok" version "4.1.6"
 }
 
