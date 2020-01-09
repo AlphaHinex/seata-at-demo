@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos:8848
+  datasource:
+    url: jdbc:mysql://mysql:3306/at
+    username: at
+    password: at
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL57Dialect
+
+seata:
+  service:
+    grouplist: seata-server:8091
