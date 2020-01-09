@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: order
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8083
