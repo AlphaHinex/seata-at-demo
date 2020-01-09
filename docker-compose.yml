@@ -1,74 +1,80 @@
-mysql:
-  image: mysql:5.7.28
-  volumes:
-    - ./docker/mysql/conf:/etc/mysql/conf.d
-    - ./docker/mysql/init:/docker-entrypoint-initdb.d
-  environment:
-    - MYSQL_ROOT_PASSWORD=3426
-    - MYSQL_DATABASE=at
-    - MYSQL_USER=at
-    - MYSQL_PASSWORD=at
-  ports:
-    - "3306:3306"
-nacos:
-  image: nacos/nacos-server:1.1.4
-  environment:
-    - MODE=standalone
-  ports:
-    - "8848:8848"
-storage:
-  image: propersoft/docker-jre:8u171-jre
-  volumes:
-    - ./modules/storage/build/libs/storage-0.0.1-SNAPSHOT.jar:/usr/local/demo/storage.jar
-  working_dir: /usr/local/demo
-  links:
-    - mysql
-    - nacos
-    - seata-server
-  command: java -jar /usr/local/demo/storage.jar
-  ports:
-    - "8081:8081"
-account:
-  image: propersoft/docker-jre:8u171-jre
-  volumes:
-    - ./modules/account/build/libs/account-0.0.1-SNAPSHOT.jar:/usr/local/demo/account.jar
-  working_dir: /usr/local/demo
-  links:
-    - mysql
-    - nacos
-    - seata-server
-  command: java -jar /usr/local/demo/account.jar
-  ports:
-    - "8082:8082"
-order:
-  image: propersoft/docker-jre:8u171-jre
-  volumes:
-    - ./modules/order/build/libs/order-0.0.1-SNAPSHOT.jar:/usr/local/demo/order.jar
-  working_dir: /usr/local/demo
-  links:
-    - mysql
-    - nacos
-    - seata-server
-  command: java -jar /usr/local/demo/order.jar
-  ports:
-    - "8083:8083"
-business:
-  image: propersoft/docker-jre:8u171-jre
-  volumes:
-    - ./modules/business/build/libs/business-0.0.1-SNAPSHOT.jar:/usr/local/demo/business.jar
-  working_dir: /usr/local/demo
-  links:
-    - mysql
-    - nacos
-    - seata-server
-  command: java -jar /usr/local/demo/business.jar
-  ports:
-    - "8084:8084"
-seata-server:
-  image: seataio/seata-server:1.0.0
-  links:
-    - nacos
-  volumes:
-    - ./docker/seata/registry.conf:/seata-server/resources/registry.conf
-  ports:
-    - "8091:8091"
+version: "3"
+services:
+  mysql:
+    image: mysql:5.7.28
+    volumes:
+      - ./docker/mysql/conf:/etc/mysql/conf.d
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=3426
+      - MYSQL_DATABASE=at
+      - MYSQL_USER=at
+      - MYSQL_PASSWORD=at
+    ports:
+      - "3306:3306"
+  nacos:
+    image: nacos/nacos-server:1.1.4
+    environment:
+      - MODE=standalone
+    ports:
+      - "8848:8848"
+  seata-server:
+    image: seataio/seata-server:1.0.0
+    depends_on:
+      - nacos
+    volumes:
+      - ./docker/seata/registry.conf:/seata-server/resources/registry.conf
+    ports:
+      - "8091:8091"
+  storage:
+    image: propersoft/docker-jre:8u171-jre
+    volumes:
+      - ./modules/storage/build/libs/storage-0.0.1-SNAPSHOT.jar:/usr/local/demo/storage.jar
+      - ./docker/wait-for-it.sh:/wait-for-it.sh
+    depends_on:
+      - mysql
+      - nacos
+      - seata-server
+    command: ["./wait-for-it.sh", "-t", "0", "nacos:8848", "--", "java", "-jar", "/usr/local/demo/storage.jar"]
+    ports:
+      - "8081:8081"
+  account:
+    image: propersoft/docker-jre:8u171-jre
+    volumes:
+      - ./modules/account/build/libs/account-0.0.1-SNAPSHOT.jar:/usr/local/demo/account.jar
+      - ./docker/wait-for-it.sh:/wait-for-it.sh
+    depends_on:
+      - mysql
+      - nacos
+      - seata-server
+    command: ["./wait-for-it.sh", "-t", "0", "nacos:8848", "--", "java", "-jar", "/usr/local/demo/account.jar"]
+    ports:
+      - "8082:8082"
+  order:
+    image: propersoft/docker-jre:8u171-jre
+    volumes:
+      - ./modules/order/build/libs/order-0.0.1-SNAPSHOT.jar:/usr/local/demo/order.jar
+      - ./docker/wait-for-it.sh:/wait-for-it.sh
+    depends_on:
+      - mysql
+      - nacos
+      - storage
+      - account
+      - seata-server
+    command: ["./wait-for-it.sh", "-t", "0", "storage:8081", "--", "./wait-for-it.sh", "-t", "0", "account:8082", "--", "java", "-jar", "/usr/local/demo/order.jar"]
+    ports:
+      - "8083:8083"
+  business:
+    image: propersoft/docker-jre:8u171-jre
+    volumes:
+      - ./modules/business/build/libs/business-0.0.1-SNAPSHOT.jar:/usr/local/demo/business.jar
+      - ./docker/wait-for-it.sh:/wait-for-it.sh
+    depends_on:
+      - mysql
+      - nacos
+      - storage
+      - order
+      - seata-server
+      command: ["./wait-for-it.sh", "-t", "0", "order:8083", "--", "java", "-jar", "/usr/local/demo/business.jar"]
+    ports:
+      - "8084:8084"
