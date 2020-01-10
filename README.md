@@ -1,14 +1,29 @@
-Seata AT Mode Demo
+SEATA AT Mode Demo
 ==================
 
 How to use?
 -----------
 
-1. Set GitHub username and token (with `read:packages` scope for read packages in GitHub Package Registry) in `build.gradle`, modify below contents:
+### Prepare
+
+Set GitHub username and token (with `read:packages` scope for read packages in GitHub Package Registry) in `build.gradle`, modify below contents:
 
     ```
     username = project.findProperty("gpr.user") ?: System.getenv("GH_OWNER")
     password = project.findProperty("gpr.reader") ?: System.getenv("GH_PKG_READER")
+    ```
+
+### Check result
+
+* [master](https://github.com/AlphaHinex/seata-at-demo/tree/master) branch: build 4 services without global transaction
+* [seata-at](https://github.com/AlphaHinex/seata-at-demo/tree/seata-at) branch: base on master branch, apply SEATA AT mode to control global transaction
+
+switch to each branch and do the steps below to check result:
+
+1. Change branch, `master` or `seata-at`
+
+    ```bash
+    $ git checkout <branch_name>
     ```
 
 1. Clean and build service jars
