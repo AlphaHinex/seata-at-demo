@@ -1,0 +1,5 @@
+seata:
+  enabled: false
+spring:
+  autoconfigure:
+    exclude: com.alibaba.cloud.seata.GlobalTransactionAutoConfiguration

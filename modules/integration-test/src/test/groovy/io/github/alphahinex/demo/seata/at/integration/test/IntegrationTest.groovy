@@ -33,9 +33,9 @@ class IntegrationTest extends AbstractIntegrationTest {
         vo.put('amount', -10)
         post(url, JsonOutput.toJson(vo), HttpStatus.INTERNAL_SERVER_ERROR)
 
-        // 库存已减
+        // 应用全局事务，库存数据回滚，不会变更
         def newStorage = resOfGet("http://localhost:8081/at/storage/$commodityCode", HttpStatus.OK).count
-        assert newStorage == storage - count
+        assert newStorage == storage
     }
 
 }
