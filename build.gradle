@@ -14,7 +14,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'io.github.spring-roll:roll-dev-configs:0.0.3-SNAPSHOT'
+        classpath 'io.github.spring-roll:roll-dev-configs:0.0.3.RELEASE'
     }
 }
 
