@@ -1,19 +1,20 @@
 buildscript {
     repositories {
         mavenCentral()
+        mavenLocal()
         maven {
             url "https://plugins.gradle.org/m2/"
         }
         maven {
             url 'https://maven.pkg.github.com/AlphaHinex/spring-roll'
             credentials(PasswordCredentials) {
-                username = 'AlphaHinex'
-                password = '9cda69cc36ec1dd7b2c1387758c99c2689c32645'
+                username = project.findProperty("gpr.user") ?: System.getenv("GH_OWNER")
+                password = project.findProperty("gpr.reader") ?: System.getenv("GH_PKG_READER")
             }
         }
     }
     dependencies {
-        classpath 'io.github.spring-roll:roll-dev-configs:0.0.2.RELEASE'
+        classpath 'io.github.spring-roll:roll-dev-configs:0.0.3-SNAPSHOT'
     }
 }
 
@@ -26,11 +27,12 @@ plugins {
 allprojects {
     repositories {
         mavenCentral()
+        mavenLocal()
         maven {
             url 'https://maven.pkg.github.com/AlphaHinex/spring-roll'
             credentials(PasswordCredentials) {
-                username = 'AlphaHinex'
-                password = '9cda69cc36ec1dd7b2c1387758c99c2689c32645'
+                username = project.findProperty("gpr.user") ?: System.getenv("GH_OWNER")
+                password = project.findProperty("gpr.reader") ?: System.getenv("GH_PKG_READER")
             }
         }
     }
@@ -53,8 +55,9 @@ allprojects {
 }
 
 apply plugin: 'idea'
+apply from: this.getClass().getClassLoader().getResource("META-INF/configs/scaffold/module.gradle")
 
-group = 'io.github.alphahinex.demo'
+group = 'io.github.alphahinex.demo.seata.at'
 version = '0.0.1-SNAPSHOT'
 
 subprojects {

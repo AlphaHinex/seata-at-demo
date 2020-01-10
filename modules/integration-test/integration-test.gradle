@@ -1,0 +1,7 @@
+test {
+    exclude '**/integration/**'
+}
+
+task integrationTest(type: Test, dependsOn: test) {
+    include '**/integration/**'
+}
