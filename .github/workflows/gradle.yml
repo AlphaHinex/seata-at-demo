@@ -14,4 +14,6 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Gradle
+      env:
+        GH_PKG_READER: ${{ secrets.GITHUB_TOKEN }}
       run: ./gradlew build

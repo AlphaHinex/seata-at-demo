@@ -8,7 +8,7 @@ buildscript {
             url 'https://maven.pkg.github.com/AlphaHinex/spring-roll'
             credentials(PasswordCredentials) {
                 username = 'AlphaHinex'
-                password = '9cda69cc36ec1dd7b2c1387758c99c2689c32645'
+                password = project.findProperty("gpr.reader") ?: System.getenv("GH_PKG_READER")
             }
         }
     }
@@ -30,7 +30,7 @@ allprojects {
             url 'https://maven.pkg.github.com/AlphaHinex/spring-roll'
             credentials(PasswordCredentials) {
                 username = 'AlphaHinex'
-                password = '9cda69cc36ec1dd7b2c1387758c99c2689c32645'
+                password = project.findProperty("gpr.reader") ?: System.getenv("GH_PKG_READER")
             }
         }
     }
