@@ -4,7 +4,7 @@ Seata AT Mode Demo
 How to use?
 -----------
 
-1. Build service jars
+1. Clean and build service jars
 
     ```
     $ ./gradlew clean bootJar
@@ -32,7 +32,7 @@ How to use?
     $ curl -H "Content-Type:application/json" -X POST -d '{"userId":"1","commodityCode":"C201901140001","name":"水杯","count":2,"amount":"100"}' localhost:8084/at/business/buy
     ```
    
-   then this will send a pay request, and return code is 200.
+   then this will send a pay request, and return code is 201.
 
 1. The follow request will cause an exception
 
