@@ -1,6 +1,6 @@
 package io.github.alphahinex.demo.seata.at.account.entity;
 
-import io.github.alphahinex.demo.seata.at.common.entity.BaseEntity;
+import io.github.springroll.base.jpa.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
