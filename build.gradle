@@ -85,7 +85,6 @@ subprojects {
 
              implementation libraries.spring_boot_starter_data_jpa
              implementation libraries.mysql_driver
-             implementation libraries.druid_spring_boot_starter
              implementation libraries.spring_cloud_starter_openfeign
              implementation libraries.spring_cloud_alibaba_nacos_discovery
 

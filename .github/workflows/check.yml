@@ -1,0 +1,48 @@
+# https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions
+name: Check
+
+on:
+  push:
+    branches:
+      - master
+      - seata-at
+  pull_request:
+
+env:
+  GH_OWNER: AlphaHinex
+  GH_PKG_READER: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Build with Gradle
+      run: ./gradlew build
+
+  integrtion-test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Build boot jar
+      run: ./gradlew bootJar
+    - name: Prepare containers
+      run: docker-compose up -d
+    - name: Wait
+      uses: jakejarvis/wait-action@master
+      with:
+        time: '60s'
+    - name: Test
+      run: ./gradlew integrationTest
