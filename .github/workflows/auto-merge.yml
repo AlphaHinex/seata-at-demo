@@ -1,5 +1,5 @@
 # https://github.com/marketplace/actions/nightly-merge
-name: 'Auto merge master to seata-at branch'
+name: Auto merge master to seata-at branch
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - master
 
 jobs:
-  nightly-merge:
+  auto-merge:
 
     runs-on: ubuntu-latest
 

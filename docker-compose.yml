@@ -11,7 +11,7 @@ services:
       - MYSQL_USER=at
       - MYSQL_PASSWORD=at
     ports:
-      - "3306:3306"
+      - "33306:3306"
   nacos:
     image: nacos/nacos-server:1.1.4
     environment:
