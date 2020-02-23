@@ -1,6 +1,8 @@
 SEATA AT Mode Demo
 ==================
 
+[![Check](https://github.com/AlphaHinex/seata-at-demo/workflows/Check/badge.svg)](https://github.com/AlphaHinex/seata-at-demo/actions?query=workflow%3ACheck)
+
 How to use?
 -----------
 
